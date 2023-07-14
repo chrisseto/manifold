@@ -25,7 +25,7 @@
                   "manifold-${parallel-backend}";
               version = "beta";
               src = self;
-              nativeBuildInputs = (with pkgs; [ cmake (python39.withPackages (ps: with ps; [ trimesh ])) ]) ++ build-tools ++
+              nativeBuildInputs = (with pkgs; [ cmake (python310.withPackages (ps: with ps; [ trimesh ])) ]) ++ build-tools ++
                 (if cuda-support then with pkgs.cudaPackages; [ cuda_nvcc cuda_cudart cuda_cccl pkgs.addOpenGLRunpath ] else [ ]);
               cmakeFlags = [
                 "-DMANIFOLD_PYBIND=ON"
@@ -91,7 +91,7 @@
               name = "manifold-js";
               version = "beta";
               src = self;
-              nativeBuildInputs = (with pkgs; [ cmake python39 ]);
+              nativeBuildInputs = (with pkgs; [ cmake python310 ]);
               buildInputs = [ pkgs.nodejs ];
               configurePhase = ''
                 mkdir -p .emscriptencache
