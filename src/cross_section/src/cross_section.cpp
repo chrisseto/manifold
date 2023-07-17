@@ -320,15 +320,28 @@ CrossSection CrossSection::Square(const glm::vec2 size, bool center) {
  * calculated by the static Quality defaults according to the radius.
  */
 CrossSection CrossSection::Circle(float radius, int circularSegments) {
-  if (radius <= 0.0f) {
+  return Ellipse(radius, radius, circularSegments);
+}
+
+/**
+ * Constructs a ellipse of the given radii.
+ */
+CrossSection CrossSection::Ellipse(float r1, float r2, int circularSegments) {
+  if (r1 <= 0.0f || r2 <= 0.0f) {
     return CrossSection();
   }
+
+  float radius = r1;
+  if (r2 > radius) {
+	  radius = r2;
+  }
+
   int n = circularSegments > 2 ? circularSegments
                                : Quality::GetCircularSegments(radius);
   float dPhi = 360.0f / n;
   auto circle = C2::PathD(n);
   for (int i = 0; i < n; ++i) {
-    circle[i] = C2::PointD(radius * cosd(dPhi * i), radius * sind(dPhi * i));
+    circle[i] = C2::PointD(r1 * cosd(dPhi * i), r2 * sind(dPhi * i));
   }
   return CrossSection(C2::PathsD{circle});
 }

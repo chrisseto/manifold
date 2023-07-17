@@ -864,5 +864,13 @@ PYBIND11_MODULE(manifold3d, m) {
           ":param radius: Radius of the circle. Must be positive.\n"
           ":param circularSegments: Number of segments along its diameter. "
           "Default is calculated by the static Quality defaults according to "
-          "the radius.");
+          "the radius.")
+      .def_static(
+          "ellipse",
+          [](float r1, float r2, int circularSegments) {
+            return CrossSection::Ellipse(r1, r2, circularSegments);
+          },
+          py::arg("r1"), py::arg("r2"), py::arg("circularSegments") = 0,
+          "Constructs an ellipse of a given radii."
+          "\n\n");
 }

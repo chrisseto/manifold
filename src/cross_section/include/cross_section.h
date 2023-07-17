@@ -80,6 +80,7 @@ class CrossSection {
   CrossSection(const Rect& rect);
   static CrossSection Square(const glm::vec2 dims, bool center = false);
   static CrossSection Circle(float radius, int circularSegments = 0);
+  static CrossSection Ellipse(float r1, float r2, int circularSegments = 0);
   ///@}
 
   /** @name Information
